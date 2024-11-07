@@ -1,25 +1,25 @@
 package db
 
 import (
-	"context"
-
-	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/immdipu/user-service/models"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-var dbPool *pgxpool.Pool
+var DB *gorm.DB
 
 func InitDB(connectionString string) error {
+
 	var err error
-	dbPool, err = pgxpool.New(context.Background(), connectionString)
+
+	DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{})
 
 	if err != nil {
 		return err
 	}
 
+	DB.AutoMigrate(&models.User{})
+
 	return nil
 
-}
-
-func CloseDB() {
-	dbPool.Close()
 }

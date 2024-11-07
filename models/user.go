@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type Role string
 
@@ -10,7 +14,7 @@ const (
 )
 
 type User struct {
-	ID               string    `json:"id"`
+	gorm.Model
 	FullName         string    `json:"fullName"`
 	Username         string    `json:"username"`
 	Email            string    `json:"email"`
@@ -22,6 +26,4 @@ type User struct {
 	Following        string    `json:"following"`
 	LoggedWithGoogle bool      `json:"loggedWithGoogle"`
 	LastActive       time.Time `json:"lastActive"`
-	CreatedAt        time.Time `json:"creatdeAt"`
-	UpdatedAt        time.Time `json:"updatedAt"`
 }

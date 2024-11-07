@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/immdipu/user-service/db"
+	"github.com/immdipu/user-service/models"
 )
 
 func main() {
@@ -16,7 +17,14 @@ func main() {
 
 	log.Println("Connected to the database")
 
-	defer db.CloseDB()
+	db.DB.Create(&models.User{
+		FullName:   "Dipu",
+		Email:      "dipu@gmail.com",
+		Username:   "immdipu",
+		Bio:        "I am a software engineer",
+		ProfilePic: "https://www.google.com",
+		Verified:   true,
+	})
 
 	// var router *gin.Engine = gin.Default()
 
