@@ -19,3 +19,7 @@ func InitDB(connectionString string) error {
 	return nil
 
 }
+
+func CloseDB() {
+	dbPool.Close()
+}
