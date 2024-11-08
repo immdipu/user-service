@@ -8,11 +8,13 @@ import (
 
 var DB *gorm.DB
 
-func InitDB(connectionString string) error {
+func InitDB() error {
 
 	var err error
 
-	DB, err = gorm.Open(postgres.Open(connectionString), &gorm.Config{})
+	dns := "host=postgres_db user=postgres password=dipu dbname=user_service port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+
+	DB, err = gorm.Open(postgres.Open(dns), &gorm.Config{})
 
 	if err != nil {
 		return err

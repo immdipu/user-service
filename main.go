@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	err := db.InitDB("postgres://postgres:dipu@localhost:5432/user-service")
+	err := db.InitDB()
 
 	if err != nil {
 		log.Fatal("Error connecting to the database", err)

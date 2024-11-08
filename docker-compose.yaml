@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: user_service
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dipu
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "user_service", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  user-service:
+    container_name: user-service
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
