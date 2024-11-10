@@ -33,6 +33,16 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
+	err = user.CheckIfUnique()
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"message": err.Error(),
+		})
+		return
+	}
+
 	result := db.DB.Create(&user)
 
 	if result.Error != nil {

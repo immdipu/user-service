@@ -1,11 +1,13 @@
 package models
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"time"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/immdipu/user-service/db"
 	"gorm.io/gorm"
 )
 
@@ -84,4 +86,19 @@ func (u *User) Validate() error {
 	}
 
 	return nil
+}
+
+func (u *User) CheckIfUnique() error {
+	var existingUser User
+	result := db.DB.Where("email = ?", u.Email).Or("username = ?", u.Username).First(&existingUser)
+	if result.Error == nil {
+		if existingUser.Email == u.Email {
+			return errors.New("email already exists")
+		}
+		if existingUser.Username == u.Username {
+			return errors.New("username already exists")
+		}
+	}
+	return nil
+
 }

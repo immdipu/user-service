@@ -1,7 +1,6 @@
 package db
 
 import (
-	"github.com/immdipu/user-service/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -19,8 +18,6 @@ func InitDB() error {
 	if err != nil {
 		return err
 	}
-
-	DB.AutoMigrate(&models.User{})
 
 	return nil
 
